@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>InstallBasicPackageFiles &mdash; YCM 0.1.0~20140711+gitd85bff90 Documentation</title>
+    
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0~20140711+gitd85bff90',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <link rel="shortcut icon" href="../static/ycm-favicon.ico"/>
+    <link rel="top" title="YCM 0.1.0~20140711+gitd85bff90 Documentation" href="../index.html" />
+    <link rel="up" title="ycm-modules(7)" href="../manual/ycm-modules.7.html" />
+    <link rel="next" title="AddUninstallTarget" href="AddUninstallTarget.html" />
+    <link rel="prev" title="StandardFindModule" href="StandardFindModule.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="AddUninstallTarget.html" title="AddUninstallTarget"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="StandardFindModule.html" title="StandardFindModule"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &raquo;
+  </li>
+  <li>
+    <a href="../index.html">0.1.0~20140711+gitd85bff90 Documentation</a> &raquo;
+  </li>
+
+          <li><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installbasicpackagefiles">
+<span id="InstallBasicPackageFiles"></span><h1>InstallBasicPackageFiles<a class="headerlink" href="#installbasicpackagefiles" title="Permalink to this headline">¶</a></h1>
+<p>A helper module to make your package easier to be found by other
+projects.</p>
+<dl class="command">
+<dt id="install_basic_package_files">
+<tt class="descname">install_basic_package_files</tt><a class="headerlink" href="#install_basic_package_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Create and install a basic version of cmake config files for your
+project:</p>
+<div class="highlight-python"><div class="highlight"><pre>install_basic_package_files(&lt;Name&gt;
+                            VERSION &lt;version&gt;
+                            COMPATIBILITY &lt;compatibility&gt;
+                            TARGETS_PROPERTY &lt;property_name&gt;
+                            [NO_SET_AND_CHECK_MACRO]
+                            [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
+                            [VARS_PREFIX &lt;prefix&gt;] # (default = &quot;&lt;name&gt;&quot;)
+                            [DESTINATION &lt;destination&gt;]
+                            [NAMESPACE &lt;namespace&gt;] # (default = &quot;&lt;name&gt;::&quot;)
+                            [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
+                            [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
+                           )
+</pre></div>
+</div>
+<p>Depending on UPPERCASE_FILENAMES and LOWERCASE_FILENAMES, this
+function generates 3 files:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&lt;Name&gt;ConfigVersion.cmake</span></tt> or <tt class="docutils literal"><span class="pre">&lt;name&gt;-config-version.cmake</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">&lt;Name&gt;Config.cmake</span></tt> or <tt class="docutils literal"><span class="pre">&lt;name&gt;-config.cmake</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">&lt;Name&gt;Targets.cmake</span></tt> or <tt class="docutils literal"><span class="pre">&lt;name&gt;-targets.cmake</span></tt></li>
+</ul>
+</div></blockquote>
+<p>If neither UPPERCASE_FILENAMES nor LOWERCASE_FILENAMES is set, a file
+<tt class="docutils literal"><span class="pre">&lt;Name&gt;ConfigVersion.cmake.in</span></tt> or
+<tt class="docutils literal"><span class="pre">&lt;name&gt;-config-version.cmake.in</span></tt> is searched, and the convention
+is chosed according to the file found. If no file was found, the
+uppercase convention is used.</p>
+<p>Each file is generated twice, one for the build directory and one for
+the installation directory.  The <tt class="docutils literal"><span class="pre">DESTINATION</span></tt> argument can be
+passed to install the files in a location different from the default
+one (<tt class="docutils literal"><span class="pre">CMake</span></tt> on Windows, <tt class="docutils literal"><span class="pre">${CMAKE_INSTALL_LIBDIR}/cmake/${name}</span></tt>
+on other platforms.</p>
+<p>The <tt class="docutils literal"><span class="pre">&lt;Name&gt;ConfigVersion.cmake</span></tt> is generated using
+<tt class="docutils literal"><span class="pre">write_basic_package_version_file</span></tt>.  The <tt class="docutils literal"><span class="pre">VERSION</span></tt>,
+<tt class="docutils literal"><span class="pre">COMPATIBILITY</span></tt>, <tt class="docutils literal"><span class="pre">NO_SET_AND_CHECK_MACRO</span></tt>, and
+<tt class="docutils literal"><span class="pre">NO_CHECK_REQUIRED_COMPONENTS_MACRO</span></tt> are passed to this function.
+See the documentation for the <a class="reference external" href="http://cmake.org/cmake/help/v3.0/module/CMakePackageConfigHelpers.html#CMakePackageConfigHelpers" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-module docutils literal"><span class="pre">CMakePackageConfigHelpers</span></tt></a>
+module for further information. The files in the build and install
+directory are exactly the same.</p>
+<p>The <tt class="docutils literal"><span class="pre">&lt;Name&gt;Config.cmake</span></tt> is generated using
+<tt class="docutils literal"><span class="pre">configure_package_config_file</span></tt>.  See the documentation for the
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/module/CMakePackageConfigHelpers.html#CMakePackageConfigHelpers" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-module docutils literal"><span class="pre">CMakePackageConfigHelpers</span></tt></a> module for further information.
+The module expects to find a <tt class="docutils literal"><span class="pre">&lt;Name&gt;Config.cmake.in</span></tt> or
+<tt class="docutils literal"><span class="pre">&lt;name&gt;-config.cmake.in</span></tt> file in the root directory of the project.
+If the file does not exist, a very basic file is created.</p>
+<p>A set of variables are checked and passed to
+<tt class="docutils literal"><span class="pre">configure_package_config_file</span></tt> as <tt class="docutils literal"><span class="pre">PATH_VARS</span></tt>. For each of the
+<tt class="docutils literal"><span class="pre">SUFFIX</span></tt> considered, if one of the variables:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;VARS_PREFIX&gt;_(BUILD|INSTALL)_&lt;SUFFIX&gt;
+(BUILD|INSTALL)_&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt;
+</pre></div>
+</div>
+<p>is defined, the <tt class="docutils literal"><span class="pre">&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt;</span></tt> variable will be defined
+before configuring the package.  In order to use that variable in the
+config file, a line ou can access to that variable in the config
+file by using:</p>
+<div class="highlight-python"><div class="highlight"><pre>set_and_check(&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt; \&quot;@PACKAGE_&lt;VARS_PREFIX&gt;_&lt;SUFFIX&gt;@\&quot;)
+</pre></div>
+</div>
+<p>These variable will have different values whether you are using the
+package from the build tree or from the install directory.  Also these
+files will contain only relative paths, meaning that you can move the
+whole installation and the CMake files will still work.</p>
+<p>Default <tt class="docutils literal"><span class="pre">PATH_VARS</span></tt> suffixes are:</p>
+<div class="highlight-python"><div class="highlight"><pre>BINDIR          BIN_DIR
+SBINDIR         SBIN_DIR
+LIBEXECDIR      LIBEXEC_DIR
+SYSCONFDIR      SYSCONF_DIR
+SHAREDSTATEDIR  SHAREDSTATE_DIR
+LOCALSTATEDIR   LOCALSTATE_DIR
+LIBDIR          LIB_DIR
+INCLUDEDIR      INCLUDE_DIR
+OLDINCLUDEDIR   OLDINCLUDE_DIR
+DATAROOTDIR     DATAROOT_DIR
+DATADIR         DATA_DIR
+INFODIR         INFO_DIR
+LOCALEDIR       LOCALE_DIR
+MANDIR          MAN_DIR
+DOCDIR          DOC_DIR
+</pre></div>
+</div>
+<p>more suffixes can be added using the <tt class="docutils literal"><span class="pre">EXTRA_PATH_VARS_SUFFIX</span></tt>
+argument.</p>
+<p>The <tt class="docutils literal"><span class="pre">&lt;name&gt;Targets.cmake</span></tt> is generated using
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/export.html#export" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">export(TARGETS)</span></tt></a> in the build tree and
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/install.html#install" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">install(EXPORT)</span></tt></a> in the installation directory.
+The targets are exported using the value for the <tt class="docutils literal"><span class="pre">NAMESPACE</span></tt>
+argument as namespace.
+The targets should be listed in a global property, that must be passed
+to the function using the <tt class="docutils literal"><span class="pre">TARGETS_PROPERTY</span></tt> argument</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="StandardFindModule.html"
+                        title="previous chapter">StandardFindModule</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="AddUninstallTarget.html"
+                        title="next chapter">AddUninstallTarget</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../sources/module/InstallBasicPackageFiles.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="AddUninstallTarget.html" title="AddUninstallTarget"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="StandardFindModule.html" title="StandardFindModule"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &raquo;
+  </li>
+  <li>
+    <a href="../index.html">0.1.0~20140711+gitd85bff90 Documentation</a> &raquo;
+  </li>
+
+          <li><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright Copyright 2013-2014  iCub Facility, Istituto Italiano di Tecnologia.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

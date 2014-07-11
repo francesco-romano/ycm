@@ -1,0 +1,910 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ycm-superbuild(7) &mdash; YCM 0.1.0~20140711+gitd85bff90 Documentation</title>
+    
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0~20140711+gitd85bff90',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <link rel="shortcut icon" href="../static/ycm-favicon.ico"/>
+    <link rel="top" title="YCM 0.1.0~20140711+gitd85bff90 Documentation" href="../index.html" />
+    <link rel="next" title="ycm-devel(7)" href="ycm-devel.7.html" />
+    <link rel="prev" title="ycm-build-system-support(7)" href="ycm-build-system-support.7.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ycm-devel.7.html" title="ycm-devel(7)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ycm-build-system-support.7.html" title="ycm-build-system-support(7)"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &raquo;
+  </li>
+  <li>
+    <a href="../index.html">0.1.0~20140711+gitd85bff90 Documentation</a> &raquo;
+  </li>
+ 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="ycm-superbuild(7)"></span><div class="section" id="ycm-superbuild-7">
+<h1><a class="toc-backref" href="#id22">ycm-superbuild(7)</a><a class="headerlink" href="#ycm-superbuild-7" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ycm-superbuild-7" id="id22">ycm-superbuild(7)</a><ul>
+<li><a class="reference internal" href="#ycm-superbuild" id="id23">YCM Superbuild</a></li>
+<li><a class="reference internal" href="#ycm-superbuild-manual-for-basic-users" id="id24">YCM Superbuild Manual for Basic Users</a><ul>
+<li><a class="reference internal" href="#linux" id="id25">Linux</a></li>
+<li><a class="reference internal" href="#windows" id="id26">Windows</a></li>
+<li><a class="reference internal" href="#os-x" id="id27">OS X</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ycm-superbuild-manual-for-developers" id="id28">YCM Superbuild Manual for Developers</a><ul>
+<li><a class="reference internal" href="#directories" id="id29">Directories</a></li>
+<li><a class="reference internal" href="#developer-mode" id="id30">Developer Mode</a></li>
+<li><a class="reference internal" href="#expert-mode" id="id31">Expert Mode</a></li>
+<li><a class="reference internal" href="#targets" id="id32">Targets</a><ul>
+<li><a class="reference internal" href="#global-targets" id="id33">Global Targets</a><ul>
+<li><a class="reference internal" href="#all-all" id="id34"><tt class="docutils literal"><span class="pre">all</span></tt> (<tt class="docutils literal"><span class="pre">ALL</span></tt>)</a></li>
+<li><a class="reference internal" href="#update-all-all-update" id="id35"><tt class="docutils literal"><span class="pre">update-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_UPDATE</span></tt>)</a></li>
+<li><a class="reference internal" href="#fetch-all-all-fetch" id="id36"><tt class="docutils literal"><span class="pre">fetch-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_FETCH</span></tt>)</a></li>
+<li><a class="reference internal" href="#status-all-all-status" id="id37"><tt class="docutils literal"><span class="pre">status-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_STATUS</span></tt>)</a></li>
+<li><a class="reference internal" href="#clean-all-all-clean" id="id38"><tt class="docutils literal"><span class="pre">clean-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_CLEAN</span></tt>)</a></li>
+<li><a class="reference internal" href="#print-directories-all-all-print-directories" id="id39"><tt class="docutils literal"><span class="pre">print-directories-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_PRINT_DIRECTORIES</span></tt>)</a></li>
+<li><a class="reference internal" href="#install" id="id40"><tt class="docutils literal"><span class="pre">install</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#component-targets" id="id41">Component Targets</a><ul>
+<li><a class="reference internal" href="#component" id="id42"><tt class="docutils literal"><span class="pre">&lt;COMPONENT&gt;</span></tt></a></li>
+<li><a class="reference internal" href="#component-update" id="id43"><tt class="docutils literal"><span class="pre">&lt;COMPONENT&gt;-update</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-common" id="id44">Project Targets - Common</a><ul>
+<li><a class="reference internal" href="#project" id="id45"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-basic-mode" id="id46">Project Targets - Basic Mode</a><ul>
+<li><a class="reference internal" href="#project-update" id="id47"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-update</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-development-mode" id="id48">Project Targets - Development Mode</a><ul>
+<li><a class="reference internal" href="#project-configure" id="id49"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-configure</span></tt></a></li>
+<li><a class="reference internal" href="#project-fetch" id="id50"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-fetch</span></tt></a></li>
+<li><a class="reference internal" href="#project-status" id="id51"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-status</span></tt></a></li>
+<li><a class="reference internal" href="#project-clean" id="id52"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-clean</span></tt></a></li>
+<li><a class="reference internal" href="#project-edit-cache" id="id53"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-edit-cache</span></tt></a></li>
+<li><a class="reference internal" href="#project-print-directories" id="id54"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-print-directories</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependees" id="id55"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependees</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependees-update" id="id56"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependees-update</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependers" id="id57"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependers</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependers-update" id="id58"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependers-update</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-special-components" id="id59">Project Targets - Special Components</a><ul>
+<li><a class="reference internal" href="#documentation-projects" id="id60"><tt class="docutils literal"><span class="pre">documentation</span></tt> Projects</a></li>
+<li><a class="reference internal" href="#examples-projects" id="id61"><tt class="docutils literal"><span class="pre">examples</span></tt> Projects</a></li>
+<li><a class="reference internal" href="#templates-projects" id="id62"><tt class="docutils literal"><span class="pre">templates</span></tt> Projects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ides" id="id63">IDEs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ycm-superbuild-manual-for-maintainers" id="id64">YCM Superbuild Manual for Maintainers</a><ul>
+<li><a class="reference internal" href="#build-modules" id="id65">Build Modules</a><ul>
+<li><a class="reference internal" href="#non-cmake-projects" id="id66">Non CMake Projects</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overriding-parameters" id="id67">Overriding Parameters</a></li>
+<li><a class="reference internal" href="#components" id="id68">Components</a></li>
+<li><a class="reference internal" href="#changing-tag-git-repository-only" id="id69">Changing TAG (git repository only)</a></li>
+<li><a class="reference internal" href="#styles" id="id70">Styles</a></li>
+<li><a class="reference internal" href="#cdash-integration" id="id71">CDash Integration</a></li>
+<li><a class="reference internal" href="#non-interactive-builds" id="id72">Non Interactive Builds</a></li>
+<li><a class="reference internal" href="#install-step" id="id73">Install Step</a></li>
+<li><a class="reference internal" href="#maintainer-mode" id="id74">Maintainer Mode</a></li>
+<li><a class="reference internal" href="#examples" id="id75">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="ycm-superbuild">
+<h2><a class="toc-backref" href="#id23">YCM Superbuild</a><a class="headerlink" href="#ycm-superbuild" title="Permalink to this headline">¶</a></h2>
+<p>A YCM Superbuild is a CMake project whose only goal is to download and
+build several other projects.</p>
+<p>The superbuild will check if a package is available on the system, and,
+if it is not, it will download its source code build and install it.</p>
+<p>Depending on your reason for using a YCM superbuild, you should skip to
+the appropriate section:</p>
+<ul class="simple">
+<li>If you just want to build the YCM superbuild project with all the
+sub-projects and start using it, read the
+<a class="reference internal" href="#ycm-superbuild-manual-for-basic-users"><em>YCM Superbuild Manual for Basic Users</em></a>.</li>
+<li>If you want to download, build and modify the source code of one or
+some of the YCM superbuild sub-projects, read
+<a class="reference internal" href="#ycm-superbuild-manual-for-developers"><em>YCM Superbuild Manual for Developers</em></a>.</li>
+<li>If you want to create a new superbuild or to modify an existing one,
+or you are interested in the internals of a YCM superbuild read
+<a class="reference internal" href="#ycm-superbuild-manual-for-maintainers"><em>YCM Superbuild Manual for Maintainers</em></a>.</li>
+</ul>
+</div>
+<div class="section" id="ycm-superbuild-manual-for-basic-users">
+<span id="id1"></span><h2><a class="toc-backref" href="#id24">YCM Superbuild Manual for Basic Users</a><a class="headerlink" href="#ycm-superbuild-manual-for-basic-users" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<p>A YCM superbuild can be built like any other CMake project.</p>
+<div class="section" id="linux">
+<h3><a class="toc-backref" href="#id25">Linux</a><a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-sh"><div class="highlight"><pre>mkdir build
+<span class="nb">cd </span>build
+cmake ..
+</pre></div>
+</div>
+<p>Now, if you run</p>
+<div class="highlight-sh"><div class="highlight"><pre>make
+</pre></div>
+</div>
+<p>the superbuild will download and install all the required projects that
+cannot be found on the system.</p>
+<p>After the build, all the subprojects will be installed inside the
+<tt class="docutils literal"><span class="pre">build/install</span></tt> folder, therefore in order to use use it you will
+have to adjust some environment variables</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="k">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="k">}</span>/build/install/bin/
+<span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:<span class="k">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="k">}</span>/build/install/lib/
+<span class="nb">export </span><span class="nv">CMAKE_PREFIX_PATH</span><span class="o">=</span><span class="nv">$CMAKE_PREFIX_PATH</span>:<span class="k">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="k">}</span>/build/install/
+</pre></div>
+</div>
+<p>You can add these lines (replacing <tt class="docutils literal"><span class="pre">${PROJECT_SOURCE_DIR}</span></tt> with the
+folder where you downloaded your project) to your .bashrc file if you
+don&#8217;t want to have to execute them manually every time.</p>
+<p>In order to compile just one project (and all the projects on which this
+project depends) you can just run instead</p>
+<div class="highlight-sh"><div class="highlight"><pre>make &lt;project&gt;
+</pre></div>
+</div>
+<p>In order to update the external projects, you will have to run</p>
+<div class="highlight-sh"><div class="highlight"><pre>make update-all
+</pre></div>
+</div>
+<p>or if you want to update just one project, you can run</p>
+<div class="highlight-sh"><div class="highlight"><pre>make &lt;project&gt;-update
+</pre></div>
+</div>
+<p>After updating some project, you should then rebuild.</p>
+<div class="highlight-sh"><div class="highlight"><pre>make
+</pre></div>
+</div>
+</div>
+<div class="section" id="windows">
+<h3><a class="toc-backref" href="#id26">Windows</a><a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add Windows documentation</p>
+</div>
+</div>
+<div class="section" id="os-x">
+<h3><a class="toc-backref" href="#id27">OS X</a><a class="headerlink" href="#os-x" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add OS X documentation</p>
+</div>
+</div>
+</div>
+<div class="section" id="ycm-superbuild-manual-for-developers">
+<span id="id2"></span><h2><a class="toc-backref" href="#id28">YCM Superbuild Manual for Developers</a><a class="headerlink" href="#ycm-superbuild-manual-for-developers" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<p>A developer is someone that does not want just to build the superbuild
+but also wants to modify some of the subprojects.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a package should be built with a YCM Superbuild, this should not be
+available on the system. If it is, then the source code will not even
+be downloaded.
+In order to keep 2 different versions, the superbuild should ignore
+the system version, and download and build it instead.
+This can be done by setting the <tt class="docutils literal"><span class="pre">USE_SYSTEM_&lt;PACKAGE&gt;</span></tt> varibale to
+<tt class="docutils literal"><span class="pre">FALSE</span></tt>.</p>
+</div>
+<p>This can be done by running <a class="reference external" href="http://cmake.org/cmake/help/v3.0/manual/ccmake.1.html#ccmake(1)" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-manual docutils literal"><span class="pre">ccmake</span></tt></a> or
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/manual/cmake-gui.1.html#cmake-gui(1)" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-manual docutils literal"><span class="pre">cmake-gui</span></tt></a> and changing the value, or by
+running adding <tt class="docutils literal"><span class="pre">-DUSE_SYSTEM_&lt;PACKAGE&gt;:BOOL=FALSE</span></tt> to the
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/manual/cmake.1.html#cmake(1)" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-manual docutils literal"><span class="pre">cmake</span></tt></a> command line.</p>
+<div class="section" id="directories">
+<span id="id3"></span><h3><a class="toc-backref" href="#id29">Directories</a><a class="headerlink" href="#directories" title="Permalink to this headline">¶</a></h3>
+<p>The superbuild will download each subproject inside the build tree of
+the project in the folder:</p>
+<div class="highlight-python"><div class="highlight"><pre>${PROJECT_SOURCE_DIR}/&lt;component&gt;/&lt;project name&gt;
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">&lt;component&gt;</span></tt> is assigned by the maintainer, and has the main
+purpose to split the source code into conceptual units</p>
+<p>The <tt class="docutils literal"><span class="pre">&lt;project</span> <span class="pre">name&gt;</span></tt> should be the name that is used in
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/find_package.html#find_package" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">find_package()</span></tt></a> calls to find that package.</p>
+<p>Each project will be configured and built in the folder:</p>
+<div class="highlight-python"><div class="highlight"><pre>${PROJECT_BINARY_DIR}/&lt;component&gt;/&lt;project name&gt;
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">${PROJECT_BINARY_DIR}</span></tt> is the folder where you are building the
+YCM superbuild project, usually <tt class="docutils literal"><span class="pre">${PROJECT_SOURCE_DIR}/build/</span></tt></p>
+<p>The superbuild will run the <tt class="docutils literal"><span class="pre">configure</span></tt>, <tt class="docutils literal"><span class="pre">build</span></tt> and <tt class="docutils literal"><span class="pre">install</span></tt>
+step for each project.</p>
+<p>Each project will be installed in <tt class="docutils literal"><span class="pre">${PROJECT_BINARY_DIR}/install</span></tt></p>
+</div>
+<div class="section" id="developer-mode">
+<span id="id4"></span><h3><a class="toc-backref" href="#id30">Developer Mode</a><a class="headerlink" href="#developer-mode" title="Permalink to this headline">¶</a></h3>
+<p>A developer usually works on a limited set of projects.</p>
+<p>For each the superproject that the developer will modify, he should
+enable the <tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt> CMake cached variable.</p>
+<p>This can be done by running <a class="reference external" href="http://cmake.org/cmake/help/v3.0/manual/ccmake.1.html#ccmake(1)" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-manual docutils literal"><span class="pre">ccmake</span></tt></a> or
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/manual/cmake-gui.1.html#cmake-gui(1)" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-manual docutils literal"><span class="pre">cmake-gui</span></tt></a> and changing the value, or by
+running adding <tt class="docutils literal"><span class="pre">-DUSE_SYSTEM_&lt;PACKAGE&gt;:BOOL=FALSE</span></tt> to the
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/manual/cmake.1.html#cmake(1)" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-manual docutils literal"><span class="pre">cmake</span></tt></a> command line.</p>
+<p>Note that the superbuild will disable the
+<a class="reference internal" href="#target-project-update"><em>update target</em></a> for the projects in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt>, you will have to update them
+manually.</p>
+</div>
+<div class="section" id="expert-mode">
+<span id="id5"></span><h3><a class="toc-backref" href="#id31">Expert Mode</a><a class="headerlink" href="#expert-mode" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_EXPERT_MODE`</span></tt> variable will set the YCM
+Superbuild in &#8220;expert mode&#8221;. This is disabled by default.
+This means that all the projects that are in &#8220;developer mode&#8221; will have
+all the targets enabled (including the update step) and that the
+<a class="reference internal" href="#target-project-update"><em>update</em></a> and similar targets will keep
+these targets as well.</p>
+</div>
+<div class="section" id="targets">
+<span id="id6"></span><h3><a class="toc-backref" href="#id32">Targets</a><a class="headerlink" href="#targets" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="global-targets">
+<span id="id7"></span><h4><a class="toc-backref" href="#id33">Global Targets</a><a class="headerlink" href="#global-targets" title="Permalink to this headline">¶</a></h4>
+<p>These targets influence all the whole YCM superbuild. In brackets is the
+name of the target on IDEs like Visual Studio and XCode.</p>
+<div class="section" id="all-all">
+<span id="target-all"></span><h5><a class="toc-backref" href="#id34"><tt class="docutils literal"><span class="pre">all</span></tt> (<tt class="docutils literal"><span class="pre">ALL</span></tt>)</a><a class="headerlink" href="#all-all" title="Permalink to this headline">¶</a></h5>
+<p>Build all sub-projects.</p>
+</div>
+<div class="section" id="update-all-all-update">
+<span id="target-update-all"></span><h5><a class="toc-backref" href="#id35"><tt class="docutils literal"><span class="pre">update-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_UPDATE</span></tt>)</a><a class="headerlink" href="#update-all-all-update" title="Permalink to this headline">¶</a></h5>
+<p>Update all sub-projects, except for those in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt>.</p>
+</div>
+<div class="section" id="fetch-all-all-fetch">
+<span id="target-fetch-all"></span><h5><a class="toc-backref" href="#id36"><tt class="docutils literal"><span class="pre">fetch-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_FETCH</span></tt>)</a><a class="headerlink" href="#fetch-all-all-fetch" title="Permalink to this headline">¶</a></h5>
+<p>Runs git fetch for all the sub-projects in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt> (git sub-projects only).</p>
+</div>
+<div class="section" id="status-all-all-status">
+<span id="target-status-all"></span><h5><a class="toc-backref" href="#id37"><tt class="docutils literal"><span class="pre">status-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_STATUS</span></tt>)</a><a class="headerlink" href="#status-all-all-status" title="Permalink to this headline">¶</a></h5>
+<p>Prints the status (using the appropriate SCM command) for all the sub-projects
+in <tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt>.</p>
+</div>
+<div class="section" id="clean-all-all-clean">
+<span id="target-clean-all"></span><h5><a class="toc-backref" href="#id38"><tt class="docutils literal"><span class="pre">clean-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_CLEAN</span></tt>)</a><a class="headerlink" href="#clean-all-all-clean" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">Missing docs</p>
+</div>
+</div>
+<div class="section" id="print-directories-all-all-print-directories">
+<span id="target-print-directories-all"></span><h5><a class="toc-backref" href="#id39"><tt class="docutils literal"><span class="pre">print-directories-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_PRINT_DIRECTORIES</span></tt>)</a><a class="headerlink" href="#print-directories-all-all-print-directories" title="Permalink to this headline">¶</a></h5>
+<p>Prints the source and binary directories for all the sub-projects in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt>.</p>
+</div>
+<div class="section" id="install">
+<span id="target-install"></span><h5><a class="toc-backref" href="#id40"><tt class="docutils literal"><span class="pre">install</span></tt></a><a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="index-3">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add a proper installation.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>YCM does not create an <tt class="docutils literal"><span class="pre">install</span></tt> target (yet). In some cases, i.e. if you
+include some CMake module that installs some file, you might find an
+<tt class="docutils literal"><span class="pre">install</span></tt> target, but it will not install the whole superbuild, but just
+these files.</p>
+<p class="last">One known module that adds the <tt class="docutils literal"><span class="pre">install</span></tt> target is
+<tt class="docutils literal"><span class="pre">catkinConfig.cmake</span></tt> distributed with <a class="reference external" href="http://wiki.ros.org/hydro">ROS Hydro</a>, and usually included
+by running <a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/find_package.html#find_package" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">find_package(catkin)</span></tt></a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="component-targets">
+<span id="id8"></span><h4><a class="toc-backref" href="#id41">Component Targets</a><a class="headerlink" href="#component-targets" title="Permalink to this headline">¶</a></h4>
+<p>These targets influence a specific <tt class="docutils literal"><span class="pre">COMPONENT</span></tt>, for example
+<tt class="docutils literal"><span class="pre">external</span></tt></p>
+<div class="admonition-todo admonition" id="index-4">
+<p class="first admonition-title">Todo</p>
+<p class="last">Component targets.</p>
+</div>
+<div class="section" id="component">
+<span id="target-component"></span><h5><a class="toc-backref" href="#id42"><tt class="docutils literal"><span class="pre">&lt;COMPONENT&gt;</span></tt></a><a class="headerlink" href="#component" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="index-5">
+<p class="first admonition-title">Todo</p>
+<p class="last">Missing docs</p>
+</div>
+</div>
+<div class="section" id="component-update">
+<span id="target-component-update"></span><h5><a class="toc-backref" href="#id43"><tt class="docutils literal"><span class="pre">&lt;COMPONENT&gt;-update</span></tt></a><a class="headerlink" href="#component-update" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="index-6">
+<p class="first admonition-title">Todo</p>
+<p class="last">Missing docs</p>
+</div>
+</div>
+</div>
+<div class="section" id="project-targets-common">
+<span id="id9"></span><h4><a class="toc-backref" href="#id44">Project Targets - Common</a><a class="headerlink" href="#project-targets-common" title="Permalink to this headline">¶</a></h4>
+<p>These targets are always available for all the sub-projects:</p>
+<div class="section" id="project">
+<span id="target-project"></span><h5><a class="toc-backref" href="#id45"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;</span></tt></a><a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h5>
+<p>Builds a sub-project and all its dependees.</p>
+</div>
+</div>
+<div class="section" id="project-targets-basic-mode">
+<span id="id10"></span><h4><a class="toc-backref" href="#id46">Project Targets - Basic Mode</a><a class="headerlink" href="#project-targets-basic-mode" title="Permalink to this headline">¶</a></h4>
+<p>These targets are available only for the sub-projects that are <strong>not</strong> in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt>.</p>
+<div class="section" id="project-update">
+<span id="target-project-update"></span><h5><a class="toc-backref" href="#id47"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-update</span></tt></a><a class="headerlink" href="#project-update" title="Permalink to this headline">¶</a></h5>
+<p>Update a sub-project.</p>
+</div>
+</div>
+<div class="section" id="project-targets-development-mode">
+<span id="id11"></span><h4><a class="toc-backref" href="#id48">Project Targets - Development Mode</a><a class="headerlink" href="#project-targets-development-mode" title="Permalink to this headline">¶</a></h4>
+<p>These targets are available only for the sub-projects that are in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt>.</p>
+<div class="section" id="project-configure">
+<span id="target-project-configure"></span><h5><a class="toc-backref" href="#id49"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-configure</span></tt></a><a class="headerlink" href="#project-configure" title="Permalink to this headline">¶</a></h5>
+<p>Configure a sub-project.</p>
+</div>
+<div class="section" id="project-fetch">
+<span id="target-project-fetch"></span><h5><a class="toc-backref" href="#id50"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-fetch</span></tt></a><a class="headerlink" href="#project-fetch" title="Permalink to this headline">¶</a></h5>
+<p>Runs git fetch a sub-project (git sub-projects only).</p>
+</div>
+<div class="section" id="project-status">
+<span id="target-project-status"></span><h5><a class="toc-backref" href="#id51"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-status</span></tt></a><a class="headerlink" href="#project-status" title="Permalink to this headline">¶</a></h5>
+<p>Prints the status (using the appropriate SCM command) for a sub-project.</p>
+</div>
+<div class="section" id="project-clean">
+<span id="target-project-clean"></span><h5><a class="toc-backref" href="#id52"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-clean</span></tt></a><a class="headerlink" href="#project-clean" title="Permalink to this headline">¶</a></h5>
+<div class="admonition-todo admonition" id="index-7">
+<p class="first admonition-title">Todo</p>
+<p class="last">Missing docs</p>
+</div>
+</div>
+<div class="section" id="project-edit-cache">
+<span id="target-project-edit-cache"></span><h5><a class="toc-backref" href="#id53"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-edit-cache</span></tt></a><a class="headerlink" href="#project-edit-cache" title="Permalink to this headline">¶</a></h5>
+<p>Edit CMake cache for a sub-project (CMake sub-projects only).</p>
+</div>
+<div class="section" id="project-print-directories">
+<span id="target-project-print-directories"></span><h5><a class="toc-backref" href="#id54"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-print-directories</span></tt></a><a class="headerlink" href="#project-print-directories" title="Permalink to this headline">¶</a></h5>
+<p>Prints the source and binary directories for a sub-project</p>
+</div>
+<div class="section" id="project-dependees">
+<span id="target-project-dependees"></span><h5><a class="toc-backref" href="#id55"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependees</span></tt></a><a class="headerlink" href="#project-dependees" title="Permalink to this headline">¶</a></h5>
+<p>Builds all the sub-projects required by this sub-project.</p>
+</div>
+<div class="section" id="project-dependees-update">
+<span id="target-project-dependees-update"></span><h5><a class="toc-backref" href="#id56"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependees-update</span></tt></a><a class="headerlink" href="#project-dependees-update" title="Permalink to this headline">¶</a></h5>
+<p>Update all the sub-projects that are not in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt> and that are required by this
+sub-project.</p>
+</div>
+<div class="section" id="project-dependers">
+<span id="target-project-dependers"></span><h5><a class="toc-backref" href="#id57"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependers</span></tt></a><a class="headerlink" href="#project-dependers" title="Permalink to this headline">¶</a></h5>
+<p>Builds all the sub-projects that require this sub-project.</p>
+</div>
+<div class="section" id="project-dependers-update">
+<span id="target-project-dependers-update"></span><h5><a class="toc-backref" href="#id58"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependers-update</span></tt></a><a class="headerlink" href="#project-dependers-update" title="Permalink to this headline">¶</a></h5>
+<p>Update all the sub-projects that are not in
+<tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_DEVEL_MODE_&lt;PROJECT&gt;</span></tt> and that require this sub-project.</p>
+</div>
+</div>
+<div class="section" id="project-targets-special-components">
+<span id="id12"></span><h4><a class="toc-backref" href="#id59">Project Targets - Special Components</a><a class="headerlink" href="#project-targets-special-components" title="Permalink to this headline">¶</a></h4>
+<p>Projects in some special components behave in a different way</p>
+<div class="section" id="documentation-projects">
+<h5><a class="toc-backref" href="#id60"><tt class="docutils literal"><span class="pre">documentation</span></tt> Projects</a><a class="headerlink" href="#documentation-projects" title="Permalink to this headline">¶</a></h5>
+<p>These projects usually don&#8217;t have <tt class="docutils literal"><span class="pre">build</span></tt>, <tt class="docutils literal"><span class="pre">configure</span></tt>, or
+<tt class="docutils literal"><span class="pre">install</span></tt> step.
+The only target enabled is the <a class="reference internal" href="#target-project"><em>&lt;PROJECT&gt;</em></a> target.</p>
+<p>The <tt class="docutils literal"><span class="pre">update</span></tt> step for these projects is always performed with the
+<a class="reference internal" href="#target-project"><em>&lt;PROJECT&gt;</em></a> target.</p>
+<p>If one of the steps is added manually, this step is performed with the
+<a class="reference internal" href="#target-project"><em>&lt;PROJECT&gt;</em></a> target.</p>
+<p>These projects are not added to the
+<a class="reference internal" href="#global-targets"><em>global targets</em></a>.</p>
+</div>
+<div class="section" id="examples-projects">
+<h5><a class="toc-backref" href="#id61"><tt class="docutils literal"><span class="pre">examples</span></tt> Projects</a><a class="headerlink" href="#examples-projects" title="Permalink to this headline">¶</a></h5>
+<p>These projects are not added to the
+<a class="reference internal" href="#global-targets"><em>global targets</em></a>.</p>
+</div>
+<div class="section" id="templates-projects">
+<h5><a class="toc-backref" href="#id62"><tt class="docutils literal"><span class="pre">templates</span></tt> Projects</a><a class="headerlink" href="#templates-projects" title="Permalink to this headline">¶</a></h5>
+<p>These projects are not added to the
+<a class="reference internal" href="#global-targets"><em>global targets</em></a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="ides">
+<h3><a class="toc-backref" href="#id63">IDEs</a><a class="headerlink" href="#ides" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-8">
+<p class="first admonition-title">Todo</p>
+<p class="last">Add documentation about how to use the most common IDEs with YCM.</p>
+</div>
+</div>
+</div>
+<div class="section" id="ycm-superbuild-manual-for-maintainers">
+<span id="id13"></span><h2><a class="toc-backref" href="#id64">YCM Superbuild Manual for Maintainers</a><a class="headerlink" href="#ycm-superbuild-manual-for-maintainers" title="Permalink to this headline">¶</a></h2>
+<p>A YCM superbuild is based on the <a class="reference internal" href="../module/ExternalProject.html#ExternalProject" title="ExternalProject"><tt class="xref cmake cmake-module docutils literal"><span class="pre">ExternalProject</span></tt></a> CMake module.
+The <a class="reference internal" href="../module/ExternalProject.html#ExternalProject" title="ExternalProject"><tt class="xref cmake cmake-module docutils literal"><span class="pre">ExternalProject</span></tt></a> module included in YCM is basically the
+same, but includes a few extra patches to improve its functionalities,
+and to fix a few issues in order to be able to work with the code
+downloaded by <a class="reference internal" href="../module/ExternalProject.html#ExternalProject" title="ExternalProject"><tt class="xref cmake cmake-module docutils literal"><span class="pre">ExternalProject</span></tt></a>, without risking to lose work.
+The reason why these patches are applied here, is because they can be
+tested and used, before submitting them upstream. In the future, the
+goal is to merge all the required features in the module upstream.</p>
+<p>The CMake modified modules are not included automatically when you
+include YCM. In order use the version supplied with YCM, you have to set
+the <a class="reference internal" href="../variable/YCM_USE_CMAKE_PROPOSED.html#YCM_USE_CMAKE_PROPOSED" title="YCM_USE_CMAKE_PROPOSED"><tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_USE_CMAKE_PROPOSED</span></tt></a> variable to <tt class="docutils literal"><span class="pre">TRUE</span></tt> before
+searching for YCM using <a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/find_package.html#find_package" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">find_package(YCM)</span></tt></a> or
+bootstrapping it.</p>
+<div class="highlight-cmake"><div class="highlight"><pre><span class="c"># Enable cmake-proposed modules</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">YCM_USE_CMAKE_PROPOSED</span> <span class="s">TRUE</span><span class="p">)</span>
+
+<span class="c"># Now bootstrap YCM</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">YCMBootstrap</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since the superbuild will download all the external project from the
+net, using the bootstrap will consider YCM like any other external
+project, but with the difference that it is downloaded and built at
+configure time, instead of at compile time. This allows you to use
+all YCM modules right after the bootstrap.</p>
+<p>The other important modules for making a superbuild</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><tt class="xref cmake cmake-module docutils literal"><span class="pre">YCMEPHelper</span></tt></a>, a helper for <a class="reference internal" href="../module/ExternalProject.html#ExternalProject" title="ExternalProject"><tt class="xref cmake cmake-module docutils literal"><span class="pre">ExternalProject</span></tt></a> that
+does some extra setup, and add some extra targets</li>
+<li><a class="reference internal" href="../module/FindOrBuildPackage.html#FindOrBuildPackage" title="FindOrBuildPackage"><tt class="xref cmake cmake-module docutils literal"><span class="pre">FindOrBuildPackage</span></tt></a>,  that ensures that a package is
+available and eventually downloads and builds it.</li>
+</ul>
+</div></blockquote>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="ycm-modules.7.html#superbuild-helper-modules"><em>Superbuild Helper Modules</em></a></p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A superbuild usually does not contain source code, but just the
+CMake files to build all the subprojects. It can build code, but
+the target dependencies should be handled properly.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">CMake modules installed by packages built by the superbuild will
+<strong>not</strong> be available during the configure phase of the superbuild,
+therefore you cannot include them in the <tt class="docutils literal"><span class="pre">CMakeLists.txt</span></tt> file, and
+you cannot use the <a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/function.html#function" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">functions</span></tt></a> and
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/macro.html#macro" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">macros</span></tt></a> that these files declare. This is
+often a good reason for not including source code in the superbuild.</p>
+</div>
+<div class="section" id="build-modules">
+<span id="id14"></span><h3><a class="toc-backref" href="#id65">Build Modules</a><a class="headerlink" href="#build-modules" title="Permalink to this headline">¶</a></h3>
+<p>Each subproject &#8220;Project&#8221; to be built, should have a
+<tt class="docutils literal"><span class="pre">BuildProject.cmake</span></tt> file in one of the folders in
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html#CMAKE_MODULE_PATH" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-variable docutils literal"><span class="pre">CMAKE_MODULE_PATH</span></tt></a>.
+YCM has a few of them, see <a class="reference internal" href="ycm-modules.7.html#build-package-modules"><em>Build Package Modules</em></a>, that are found
+automatically after YCM was found by <a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/find_package.html#find_package" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">find_package(YCM)</span></tt></a>
+or bootstrapped.
+You can add more Build modules in your superbuild, by putting them in
+some folder and adding that folder to the
+<a class="reference external" href="http://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html#CMAKE_MODULE_PATH" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-variable docutils literal"><span class="pre">CMAKE_MODULE_PATH</span></tt></a> variable. You can also use this
+variable to replace one of the Build files included in YCM, but in this
+case your folder must be in <a class="reference external" href="http://cmake.org/cmake/help/v3.0/variable/CMAKE_MODULE_PATH.html#CMAKE_MODULE_PATH" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-variable docutils literal"><span class="pre">CMAKE_MODULE_PATH</span></tt></a>
+<em>before</em> you search for YCM:</p>
+<div class="highlight-cmake"><div class="highlight"><pre><span class="c"># Build modules are in cmake folder</span>
+<span class="nb">list</span><span class="p">(</span><span class="s">APPEND</span> <span class="s">CMAKE_MODULE_PATH</span> <span class="s2">&quot;${CMAKE_SOURCE_DIR}/cmake&quot;</span><span class="p">)</span>
+
+<span class="c"># Now search (or bootstrap) YCM</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">YCM</span> <span class="s">REQUIRED</span><span class="p">)</span>
+<span class="c"># or</span>
+<span class="c"># include(YCMBootstrap)</span>
+</pre></div>
+</div>
+<p>Each build file should handle properly the dependencies required by the
+project that will be built. By managing the dependencies for each
+project, the superbuild can ensure that the dependencies are available
+when the build starts. This is especially important when you run
+parallel builds (i.e. <tt class="docutils literal"><span class="pre">make</span> <span class="pre">-j8</span></tt>) because builds</p>
+<p>This is a basic example for a project &#8220;Bar&#8221; that depends on project
+&#8220;Foo&#8221; that uses <a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><tt class="xref cmake cmake-module docutils literal"><span class="pre">YCMEPHelper</span></tt></a> and <a class="reference internal" href="../module/FindOrBuildPackage.html#FindOrBuildPackage" title="FindOrBuildPackage"><tt class="xref cmake cmake-module docutils literal"><span class="pre">FindOrBuildPackage</span></tt></a>
+to build the code.</p>
+<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">include</span><span class="p">(</span><span class="s">YCMEPHelper</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span><span class="s">FindOrBuildPackage</span><span class="p">)</span>
+
+<span class="c"># Ensures that the superbuild knows about the Foo package</span>
+<span class="nb">find_or_build_package</span><span class="p">(</span><span class="s">Foo</span> <span class="s">QUIET</span><span class="p">)</span>
+
+<span class="nb">ycm_ep_helper</span><span class="p">(</span><span class="s">Bar</span> <span class="s">TYPE</span> <span class="s">GIT</span>
+                  <span class="s">SYLE</span> <span class="s">FOO_STYLE</span>
+                  <span class="s">REPOSITORY</span> <span class="s">foo/bar.git</span>
+                  <span class="s">TAG</span> <span class="s">master</span>
+                  <span class="s">DEPENDS</span> <span class="s">Foo</span><span class="p">)</span> <span class="c"># Explicitly declare that Bar depends on Foo</span>
+</pre></div>
+</div>
+<p>The main <tt class="docutils literal"><span class="pre">CMakeLists.txt</span></tt> will then include</p>
+<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">include</span><span class="p">(</span><span class="s">FindOrBuildPackage</span><span class="p">)</span>
+
+<span class="c"># Build the Bar package. Foo will be handled automatically</span>
+<span class="c"># You don&#39;t need a &quot;find_or_build_package(Foo)&quot; call here if the Foo</span>
+<span class="c"># package is not conceptually part of your superbuild</span>
+<span class="nb">find_or_build_package</span><span class="p">(</span><span class="s">Bar</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="non-cmake-projects">
+<span id="id15"></span><h4><a class="toc-backref" href="#id66">Non CMake Projects</a><a class="headerlink" href="#non-cmake-projects" title="Permalink to this headline">¶</a></h4>
+<p>Projects written with CMake can be included in a superbuild in a few
+minutes. Other projects using for example autotools or other build
+systems, can still be included, but they require some more effort to
+add them to the build system.</p>
+<p>In practice, the <tt class="docutils literal"><span class="pre">configure</span></tt> step is the one that usually requires to
+be modified. You can do it by passing the <tt class="docutils literal"><span class="pre">CONFIGURE_COMMAND</span></tt> argument
+to the <tt class="xref cmake cmake-command docutils literal"><span class="pre">ycm_ep_helper()</span></tt> command.
+An important thing that should be configured is the <tt class="docutils literal"><span class="pre">prefix</span></tt> where
+the package will be installed, otherwise it will be installed on the
+system default (usually in <tt class="docutils literal"><span class="pre">/usr/local/</span></tt>) and that folder might not be
+writable by the user.</p>
+<p>The following strings (including the <tt class="docutils literal"><span class="pre">&lt;</span></tt> and <tt class="docutils literal"><span class="pre">&gt;</span></tt> characters) can be
+used to configure the steps:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;SOURCE_DIR&gt;   # Source directory
+&lt;BINARY_DIR&gt;   # Binary directory
+&lt;INSTALL_DIR&gt;  # Install directory
+&lt;TMP_DIR&gt;      # Directory for temporary files.
+</pre></div>
+</div>
+<p>For example, for an automake project, the <tt class="xref cmake cmake-command docutils literal"><span class="pre">ycm_ep_helper()</span></tt>
+call could be something similar:</p>
+<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">ycm_ep_helper</span><span class="p">(</span><span class="s">Foo</span> <span class="s">TYPE</span> <span class="s">GIT</span>
+                  <span class="s">STYLE</span> <span class="s">FOO_STYLE</span>
+                  <span class="s">REPOSITORY</span> <span class="s">foo/foo.git</span>
+                  <span class="s">TAG</span> <span class="s">v1.0</span>
+                  <span class="s">CONFIGURE_COMMAND</span> <span class="s">&lt;SOURCE_DIR&gt;/configure</span> <span class="s">--prefix=&lt;INSTALL_DIR&gt;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="overriding-parameters">
+<span id="id16"></span><h3><a class="toc-backref" href="#id67">Overriding Parameters</a><a class="headerlink" href="#overriding-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Each parameter of the <tt class="xref cmake cmake-command docutils literal"><span class="pre">ycm_ep_helper()</span></tt> function can be
+overridden using cmake variables, for example to overwrite the <tt class="docutils literal"><span class="pre">TAG</span></tt>
+tag for project <tt class="docutils literal"><span class="pre">FOO</span></tt>, and the <tt class="docutils literal"><span class="pre">COMPONENT</span></tt> for project <tt class="docutils literal"><span class="pre">BAR</span></tt> you
+can just add somewhere, before the relative <tt class="xref cmake cmake-command docutils literal"><span class="pre">ycm_ep_helper()</span></tt>
+call:</p>
+<div class="highlight-cmake"><div class="highlight"><pre><span class="nb">set</span><span class="p">(</span><span class="s">FOO_TAG</span> <span class="s">v1.0</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">BAR_COMPONENT</span> <span class="s">important</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><tt class="xref cmake cmake-module docutils literal"><span class="pre">YCMEPHelper</span></tt></a> module documentation for other details about
+the parameters that can be modified with a variable.</p>
+</div>
+<div class="section" id="components">
+<h3><a class="toc-backref" href="#id68">Components</a><a class="headerlink" href="#components" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><tt class="xref cmake cmake-module docutils literal"><span class="pre">YCMEPHelper</span></tt></a> assigns to each sub-project a <tt class="docutils literal"><span class="pre">COMPONENT</span></tt> (the
+default component is <tt class="docutils literal"><span class="pre">external</span></tt>.
+This is useful to separate your project in conceptual units.</p>
+<p>You can add any other component for your superbuild.</p>
+<p>This will influence the superbuild in some ways:</p>
+<ol class="arabic">
+<li><p class="first">The superbuild will create targets for each component.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#component-targets"><em>Component Targets</em></a> for details.</p>
+</div>
+</li>
+<li><p class="first">The component will influence the folders where the project is
+downloaded and built.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#directories"><em>Directories</em></a> for details.</p>
+</div>
+</li>
+<li><p class="first">Some special components are handled in a slightly different way:</p>
+<blockquote>
+<div><ul class="simple">
+<li><tt class="docutils literal"><span class="pre">external</span></tt> component is for packages that the users of the
+superbuild will not modify.</li>
+<li><tt class="docutils literal"><span class="pre">documentation</span></tt> component contains only documentation and is not
+necessary for building the superbuild.</li>
+<li><tt class="docutils literal"><span class="pre">example</span></tt> and <tt class="docutils literal"><span class="pre">template</span></tt> components are not necessary for
+building the superbuild.</li>
+</ul>
+</div></blockquote>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#project-targets-special-components"><em>Project Targets - Special Components</em></a> for details.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="changing-tag-git-repository-only">
+<span id="changing-tag"></span><h3><a class="toc-backref" href="#id69">Changing TAG (git repository only)</a><a class="headerlink" href="#changing-tag-git-repository-only" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-9">
+<p class="first admonition-title">Todo</p>
+<p class="last">Perhaps this should be in the <a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><tt class="xref cmake cmake-module docutils literal"><span class="pre">YCMEPHelper</span></tt></a> module documentation?</p>
+</div>
+<p><tt class="xref cmake cmake-command docutils literal"><span class="pre">ycm_ep_helper()</span></tt> allows you to set a <tt class="docutils literal"><span class="pre">TAG</span></tt> for git
+repositories.
+This <tt class="docutils literal"><span class="pre">TAG</span></tt> can be any ref known by the git repository, i.e. a commit
+hash, a tag or a branch.</p>
+<p>ExternalProject handles this tag in different ways depending if this is
+a head or a fixed commit.</p>
+<p>In the first case, git will perform a checkout of the tag the first
+time, and then it will perform a rebase when the
+<a class="reference internal" href="#target-project-update"><em>update target</em></a> is executed.</p>
+<p>This is the recommended mode to use when you need to work on one project
+inside your superbuild.</p>
+<div class="admonition-todo admonition" id="index-10">
+<p class="first admonition-title">Todo</p>
+<p class="last">Changing branch issues</p>
+</div>
+<p>In the latter case, git always performs a checkout of the specific
+commit, leaving the user in &#8216;<em>detached HEAD</em>&#8216; state.</p>
+<p>This is the recommended mode to use for projects that are just
+dependencies for projects inside your superbuild, and that developers
+will not modify.</p>
+<div class="admonition-todo admonition" id="index-11">
+<p class="first admonition-title">Todo</p>
+<p class="last">Changing tag issues</p>
+</div>
+</div>
+<div class="section" id="styles">
+<span id="id17"></span><h3><a class="toc-backref" href="#id70">Styles</a><a class="headerlink" href="#styles" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-12">
+<p class="first admonition-title">Todo</p>
+<p class="last">Perhaps this should be in the <a class="reference internal" href="../module/YCMEPHelper.html#YCMEPHelper" title="YCMEPHelper"><tt class="xref cmake cmake-module docutils literal"><span class="pre">YCMEPHelper</span></tt></a> module documentation?</p>
+</div>
+<div class="admonition-todo admonition" id="index-13">
+<p class="first admonition-title">Todo</p>
+<p class="last">Missing docs</p>
+</div>
+</div>
+<div class="section" id="cdash-integration">
+<span id="id18"></span><h3><a class="toc-backref" href="#id71">CDash Integration</a><a class="headerlink" href="#cdash-integration" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-14">
+<p class="first admonition-title">Todo</p>
+<p class="last">Unit tests are not well integrated yet, see <a class="reference external" href="https://github.com/robotology/ycm/issues/17">YCM issue #17</a></p>
+</div>
+</div>
+<div class="section" id="non-interactive-builds">
+<span id="not-interactive-builds"></span><h3><a class="toc-backref" href="#id72">Non Interactive Builds</a><a class="headerlink" href="#non-interactive-builds" title="Permalink to this headline">¶</a></h3>
+<p>For build machines the <a class="reference internal" href="../module/YCMEPHelper.html#NON_INTERACTIVE_BUILD" title="NON_INTERACTIVE_BUILD"><tt class="xref cmake cmake-variable docutils literal"><span class="pre">NON_INTERACTIVE_BUILD</span></tt></a> variable
+should be set to true.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This should either be set by running
+<tt class="docutils literal"><span class="pre">cmake</span> <span class="pre">-DNON_INTERACTIVE_BUILD:BOOL=TRUE</span></tt>, or using an initial cache
+file and running <tt class="docutils literal"><span class="pre">cmake</span> <span class="pre">-C</span> <span class="pre">&lt;file&gt;</span></tt></p>
+</div>
+</div>
+<div class="section" id="install-step">
+<span id="id19"></span><h3><a class="toc-backref" href="#id73">Install Step</a><a class="headerlink" href="#install-step" title="Permalink to this headline">¶</a></h3>
+<p>An important thing to notice is that, if the subprojects are written
+in a proper way, the user will have all the files that he needs to
+use the projects in <tt class="docutils literal"><span class="pre">${PROJECT_BINARY_DIR}/install</span></tt></p>
+<p>This means that it is quite important for your subproject to install
+the files in the <tt class="docutils literal"><span class="pre">install</span></tt> step, and that all the files are installed
+<em>inside</em> the <tt class="docutils literal"><span class="pre">install</span> <span class="pre">prefix</span></tt>. For CMake projects this usually means
+that the <tt class="docutils literal"><span class="pre">DESTINATION</span></tt> argument for the <a class="reference external" href="http://cmake.org/cmake/help/v3.0/command/install.html#install" title="(in CMake v3.0.0)"><tt class="xref cmake cmake-command docutils literal"><span class="pre">install()</span></tt></a>
+command should be a <em>relative</em> path instead of <em>absoulute</em></p>
+</div>
+<div class="section" id="maintainer-mode">
+<span id="id20"></span><h3><a class="toc-backref" href="#id74">Maintainer Mode</a><a class="headerlink" href="#maintainer-mode" title="Permalink to this headline">¶</a></h3>
+<p>If the <tt class="xref cmake cmake-variable docutils literal"><span class="pre">YCM_EP_MAINTAINER_MODE</span></tt> CMake variable is
+enabled, all the targets for all the projects will be disabled, and all
+the <tt class="docutils literal"><span class="pre">USE_SYSTEM_&lt;PACKAGE&gt;</span></tt> variables will be disabled.</p>
+<p>This is an useful variable for maintainers, but is not recommended
+for developers.</p>
+</div>
+<div class="section" id="examples">
+<span id="id21"></span><h3><a class="toc-backref" href="#id75">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>This is a list of known projects using YCM.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://walk-man.eu/">WALK-MAN</a> FP7 EU project
+(<a class="reference internal" href="../images/lock.png"><img alt="lock" src="../images/lock.png" style="width: 12px; height: 12px;" /></a> <a class="reference external" href="https://gitlab.robotology.eu/walkman/walkman">WALK-MAN Superbuild Repository</a>)</li>
+<li><a class="reference external" href="http://codyco.eu/">CoDyCo</a> FP7 EU project
+(<a class="reference external" href="https://github.com/robotology-playground/codyco-superbuild">CoDyCo Superbuild Repository</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ycm-superbuild(7)</a><ul>
+<li><a class="reference internal" href="#ycm-superbuild">YCM Superbuild</a></li>
+<li><a class="reference internal" href="#ycm-superbuild-manual-for-basic-users">YCM Superbuild Manual for Basic Users</a><ul>
+<li><a class="reference internal" href="#linux">Linux</a></li>
+<li><a class="reference internal" href="#windows">Windows</a></li>
+<li><a class="reference internal" href="#os-x">OS X</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ycm-superbuild-manual-for-developers">YCM Superbuild Manual for Developers</a><ul>
+<li><a class="reference internal" href="#directories">Directories</a></li>
+<li><a class="reference internal" href="#developer-mode">Developer Mode</a></li>
+<li><a class="reference internal" href="#expert-mode">Expert Mode</a></li>
+<li><a class="reference internal" href="#targets">Targets</a><ul>
+<li><a class="reference internal" href="#global-targets">Global Targets</a><ul>
+<li><a class="reference internal" href="#all-all"><tt class="docutils literal"><span class="pre">all</span></tt> (<tt class="docutils literal"><span class="pre">ALL</span></tt>)</a></li>
+<li><a class="reference internal" href="#update-all-all-update"><tt class="docutils literal"><span class="pre">update-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_UPDATE</span></tt>)</a></li>
+<li><a class="reference internal" href="#fetch-all-all-fetch"><tt class="docutils literal"><span class="pre">fetch-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_FETCH</span></tt>)</a></li>
+<li><a class="reference internal" href="#status-all-all-status"><tt class="docutils literal"><span class="pre">status-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_STATUS</span></tt>)</a></li>
+<li><a class="reference internal" href="#clean-all-all-clean"><tt class="docutils literal"><span class="pre">clean-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_CLEAN</span></tt>)</a></li>
+<li><a class="reference internal" href="#print-directories-all-all-print-directories"><tt class="docutils literal"><span class="pre">print-directories-all</span></tt> (<tt class="docutils literal"><span class="pre">ALL_PRINT_DIRECTORIES</span></tt>)</a></li>
+<li><a class="reference internal" href="#install"><tt class="docutils literal"><span class="pre">install</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#component-targets">Component Targets</a><ul>
+<li><a class="reference internal" href="#component"><tt class="docutils literal"><span class="pre">&lt;COMPONENT&gt;</span></tt></a></li>
+<li><a class="reference internal" href="#component-update"><tt class="docutils literal"><span class="pre">&lt;COMPONENT&gt;-update</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-common">Project Targets - Common</a><ul>
+<li><a class="reference internal" href="#project"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-basic-mode">Project Targets - Basic Mode</a><ul>
+<li><a class="reference internal" href="#project-update"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-update</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-development-mode">Project Targets - Development Mode</a><ul>
+<li><a class="reference internal" href="#project-configure"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-configure</span></tt></a></li>
+<li><a class="reference internal" href="#project-fetch"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-fetch</span></tt></a></li>
+<li><a class="reference internal" href="#project-status"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-status</span></tt></a></li>
+<li><a class="reference internal" href="#project-clean"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-clean</span></tt></a></li>
+<li><a class="reference internal" href="#project-edit-cache"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-edit-cache</span></tt></a></li>
+<li><a class="reference internal" href="#project-print-directories"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-print-directories</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependees"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependees</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependees-update"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependees-update</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependers"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependers</span></tt></a></li>
+<li><a class="reference internal" href="#project-dependers-update"><tt class="docutils literal"><span class="pre">&lt;PROJECT&gt;-dependers-update</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#project-targets-special-components">Project Targets - Special Components</a><ul>
+<li><a class="reference internal" href="#documentation-projects"><tt class="docutils literal"><span class="pre">documentation</span></tt> Projects</a></li>
+<li><a class="reference internal" href="#examples-projects"><tt class="docutils literal"><span class="pre">examples</span></tt> Projects</a></li>
+<li><a class="reference internal" href="#templates-projects"><tt class="docutils literal"><span class="pre">templates</span></tt> Projects</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ides">IDEs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ycm-superbuild-manual-for-maintainers">YCM Superbuild Manual for Maintainers</a><ul>
+<li><a class="reference internal" href="#build-modules">Build Modules</a><ul>
+<li><a class="reference internal" href="#non-cmake-projects">Non CMake Projects</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overriding-parameters">Overriding Parameters</a></li>
+<li><a class="reference internal" href="#components">Components</a></li>
+<li><a class="reference internal" href="#changing-tag-git-repository-only">Changing TAG (git repository only)</a></li>
+<li><a class="reference internal" href="#styles">Styles</a></li>
+<li><a class="reference internal" href="#cdash-integration">CDash Integration</a></li>
+<li><a class="reference internal" href="#non-interactive-builds">Non Interactive Builds</a></li>
+<li><a class="reference internal" href="#install-step">Install Step</a></li>
+<li><a class="reference internal" href="#maintainer-mode">Maintainer Mode</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ycm-build-system-support.7.html"
+                        title="previous chapter">ycm-build-system-support(7)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ycm-devel.7.html"
+                        title="next chapter">ycm-devel(7)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../sources/manual/ycm-superbuild.7.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ycm-devel.7.html" title="ycm-devel(7)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ycm-build-system-support.7.html" title="ycm-build-system-support(7)"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &raquo;
+  </li>
+  <li>
+    <a href="../index.html">0.1.0~20140711+gitd85bff90 Documentation</a> &raquo;
+  </li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright Copyright 2013-2014  iCub Facility, Istituto Italiano di Tecnologia.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

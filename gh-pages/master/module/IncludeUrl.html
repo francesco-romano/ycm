@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>IncludeUrl &mdash; YCM 0.1.0~20140711+gitd85bff90 Documentation</title>
+    
+    <link rel="stylesheet" href="../static/ycm.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0~20140711+gitd85bff90',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <link rel="shortcut icon" href="../static/ycm-favicon.ico"/>
+    <link rel="top" title="YCM 0.1.0~20140711+gitd85bff90 Documentation" href="../index.html" />
+    <link rel="up" title="ycm-modules(7)" href="../manual/ycm-modules.7.html" />
+    <link rel="next" title="StandardFindModule" href="StandardFindModule.html" />
+    <link rel="prev" title="ExtractVersion" href="ExtractVersion.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="StandardFindModule.html" title="StandardFindModule"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ExtractVersion.html" title="ExtractVersion"
+             accesskey="P">previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &raquo;
+  </li>
+  <li>
+    <a href="../index.html">0.1.0~20140711+gitd85bff90 Documentation</a> &raquo;
+  </li>
+
+          <li><a href="../manual/ycm-modules.7.html" accesskey="U">ycm-modules(7)</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="includeurl">
+<span id="IncludeUrl"></span><h1>IncludeUrl<a class="headerlink" href="#includeurl" title="Permalink to this headline">¶</a></h1>
+<p>Download a file from given url and include it.</p>
+<div class="highlight-python"><div class="highlight"><pre>include_url(&lt;url&gt;                 # Url to be downloaded
+   [DESTINATION &lt;destination&gt;     # Where the file will be saved
+   [DOWNLOAD_ONCE]                # Download the file only once
+   [DOWNLOAD_ALWAYS]              # Download the file every time
+  #--Download arguments-----------
+   [INACTIVITY_TIMEOUT &lt;timeout&gt;] # Timeout after &lt;timeout&gt; seconds of inactivity
+   [TIMEOUT &lt;timeout&gt;]            # Timeout after &lt;timeout&gt; seconds
+   [STATUS &lt;status&gt;]              # Download status variable
+   [LOG &lt;log&gt;]                    # Download log variable
+   [SHOW_PROGRESS]                # Show download progress
+   [EXPECTED_HASH &lt;ALGO=value&gt;]   # Verify downloaded file&#39;s hash
+   [EXPECTED_MD5 &lt;sum&gt;]           # Short-hand for &quot;EXPECTED_HASH MD5=sum&quot;
+   [TLS_VERIFY &lt;on|off&gt;]          # Check certificates
+   [TLS_CAINFO &lt;file&gt;]            # Custom Certificate Authority file
+  #--Include arguments------------
+   [OPTIONAL]                     # Do not fail file cannot be included
+   [RESULT_VARIABLE &lt;variable&gt;]   # The local path for the file included
+   [NO_POLICY_SCOPE]              # Do not manage a new policy entry
+   )
+</pre></div>
+</div>
+<p>Download a file from given url and include it.  If <tt class="docutils literal"><span class="pre">DESTINATION</span></tt> is
+specified, the file is saved at the given location with the original
+file name, if <tt class="docutils literal"><span class="pre">&lt;destination&gt;</span></tt> is a directory, or with the given file
+name, if <tt class="docutils literal"><span class="pre">&lt;destination&gt;</span></tt> is a file name.  If not specified it will
+be saved with the original filename in
+<tt class="docutils literal"><span class="pre">${CMAKE_BINARY_DIR}/CMakeFiles</span></tt>.</p>
+<p>If the <tt class="docutils literal"><span class="pre">DOWNLOAD_ONCE</span></tt> option is specified, the file is not
+downloaded if the file already exists.  Normally the file is
+downloaded at every CMake execution, but no error is raised if the
+download fails if a version of the file already exists, unless the
+<tt class="docutils literal"><span class="pre">DOWNLOAD_ALWAYS</span></tt>.</p>
+<p>The arguments <tt class="docutils literal"><span class="pre">INACTIVITY_TIMEOUT</span></tt>, <tt class="docutils literal"><span class="pre">TIMEOUT</span></tt>, <tt class="docutils literal"><span class="pre">STATUS</span></tt>,
+<tt class="docutils literal"><span class="pre">LOG</span></tt>, <tt class="docutils literal"><span class="pre">SHOW_PROGRESS</span></tt>, <tt class="docutils literal"><span class="pre">EXPECTED_HASH</span></tt>, <tt class="docutils literal"><span class="pre">EXPECTED_MD5</span></tt>,
+<tt class="docutils literal"><span class="pre">TLS_VERIFY</span></tt>, and <tt class="docutils literal"><span class="pre">TLS_CAINFO</span></tt> are passed to the
+<tt class="docutils literal"><span class="pre">file(DOWNLOAD)</span></tt> command.  See the documentation of the <tt class="docutils literal"><span class="pre">file()</span></tt>
+command for a detailed description of these arguments.</p>
+<p>The arguments <tt class="docutils literal"><span class="pre">OPTIONAL</span></tt>, <tt class="docutils literal"><span class="pre">RESULT_VARIABLE</span></tt>, and
+<tt class="docutils literal"><span class="pre">NO_POLICY_SCOPE</span></tt> are passed to the <tt class="docutils literal"><span class="pre">include()</span></tt> command.  See the
+documentation of the <tt class="docutils literal"><span class="pre">include()</span></tt> command for a detailed description
+of these arguments.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ExtractVersion.html"
+                        title="previous chapter">ExtractVersion</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="StandardFindModule.html"
+                        title="next chapter">StandardFindModule</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../sources/module/IncludeUrl.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="StandardFindModule.html" title="StandardFindModule"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ExtractVersion.html" title="ExtractVersion"
+             >previous</a> |</li>
+  <li>
+    <img src="../static/ycm-logo-16.png" alt=""
+         style="vertical-align: middle; margin-top: -2px" />
+  </li>
+  <li>
+    <a href="https://github.com/robotology/ycm/">YCM</a> &raquo;
+  </li>
+  <li>
+    <a href="../index.html">0.1.0~20140711+gitd85bff90 Documentation</a> &raquo;
+  </li>
+
+          <li><a href="../manual/ycm-modules.7.html" >ycm-modules(7)</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright Copyright 2013-2014  iCub Facility, Istituto Italiano di Tecnologia.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

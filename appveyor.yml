@@ -14,6 +14,7 @@ platform:
 
 configuration:
   - Release
+  - Debug
 
 branches:
   except:
@@ -29,11 +30,11 @@ build:
   project: C:\projects\ycm\build\YCM.sln
 
 after_build:
-  - cmd: cmake --build C:\projects\ycm\build --target INSTALL
-  - cmd: cmake --build C:\projects\ycm\build --target PACKAGE
+  - cmd: cmake --build C:\projects\ycm\build --config %configuration% --target INSTALL
+  - cmd: cmake --build C:\projects\ycm\build --config %configuration% --target PACKAGE
 
 test_script:
-  - cmd: ctest -VV
+  - cmd: ctest -VV --build --config %configuration%
 
 artifacts:
   - path: 'build\*.msi'

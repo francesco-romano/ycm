@@ -5,17 +5,14 @@ os:
 language: c++
 
 env:
-  - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
   - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
-  - TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Xcode"
   - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Xcode"
+  - TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Ninja"
 
 matrix:
   exclude:
     - os: linux
       env: TRAVIS_BUILD_TYPE=Release TRAVIS_CMAKE_GENERATOR="Xcode"
-    - os: linux
-      env: TRAVIS_BUILD_TYPE=Debug TRAVIS_CMAKE_GENERATOR="Xcode"
 
 branches:
   except:
